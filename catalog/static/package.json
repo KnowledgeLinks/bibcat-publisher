@@ -1,0 +1,28 @@
+{
+  "name": "BIBCATPublisher",
+  "version": "0.1.0",
+  "description": "Publishes RDF linked data and digital repository resources",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KnowledgeLinks/bibcat-publisher"
+  },
+  "keywords": [
+    "rdf",
+    "linked-data",
+    "bibframe",
+    "digital",
+    "python",
+    "repository",
+    "fedora"
+  ],
+  "author": "KnowledgeLinks",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KnowledgeLinks/bibcat-publisher/issues"
+  },
+  "homepage": "https://github.com/KnowledgeLinks/bibcat-publisher"
+}
