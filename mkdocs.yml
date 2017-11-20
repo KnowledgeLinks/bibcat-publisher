@@ -1,4 +1,4 @@
-site_name: Local BIBCAT
+site_name: BIBCAT Publisher
 pages:
   - Home: index.md
   - About: about.md
