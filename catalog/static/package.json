@@ -4,7 +4,8 @@
   "description": "Publishes RDF linked data and digital repository resources",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --progress -d --config webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -24,5 +25,20 @@
   "bugs": {
     "url": "https://github.com/KnowledgeLinks/bibcat-publisher/issues"
   },
-  "homepage": "https://github.com/KnowledgeLinks/bibcat-publisher"
+  "babel": {
+    "presets": [
+      "react"
+    ]
+  },
+  "homepage": "https://github.com/KnowledgeLinks/bibcat-publisher",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-react": "^6.24.1",
+    "webpack": "^3.8.1"
+  },
+  "dependencies": {
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1"
+  }
 }

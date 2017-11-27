@@ -1,7 +1,8 @@
 import pkg_resources
 
+from flask import render_template
 from . import app
 
 @app.route("/")
 def home():
-    return "BIBCAT Publisher"
+    return render_template("index.html")
