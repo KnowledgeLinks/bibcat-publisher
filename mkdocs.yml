@@ -2,9 +2,13 @@ site_name: BIBCAT Publisher
 pages:
   - Home: index.md
   - About: about.md
-  - Installing: installing.md
+  - Installing: 
+    - 'installing/index.md'
+    - 'BIBCAT Application Server': 'installing/bibcat-app-server.md'
+    - 'NPM, Webpack, and React': 'installing/npm-webpack-react.md'
   - Hosting: hosting.md
-  - Customizing: customizing.md
+  - Customizing: 
+    - 'customizing/index.md'
   - KnowledgeGraph: knowledge-graph.md
   - DigitalRepository: digital-repository.md
 theme: readthedocs

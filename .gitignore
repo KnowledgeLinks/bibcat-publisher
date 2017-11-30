@@ -2,3 +2,6 @@
 instance*
 __pycache*
 site*
+dist*
+node_modules*
+package-lock*

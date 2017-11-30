@@ -1,10 +1,10 @@
 function Search(props) {
     return (
-        <form class="form-inline mx-lg-3">
-            <div class="form-group">
-                <input class="form-control" id="query" placeholder="Query">
+        <form className="form-inline mx-lg-3">
+            <div className="form-group">
+                <input className="form-control" id="query" placeholder="Query"></input>
             </div>
-            <button type="submit" class="btn btn-primary">Search</button>
+            <button type="submit" className="btn btn-primary">Search</button>
         </form>
     );
 }
