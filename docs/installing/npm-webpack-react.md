@@ -33,7 +33,7 @@ $ npm install --save babel-core babel-loader babel-preset-react babel-preset-env
 ```
 
 ### Step 4. Install JQuery
-The [JQuery][JQ] JavaScript library is used by [BIBCAT Publisher][BCPUB]
+The [JQuery][JQ] Javascript library is used by [BIBCAT Publisher][BCPUB]
 to communicate between the React Front-end UI and the back-end 
 semantic-server. To install [JQuery][JQ] from the command-line:
 
@@ -41,8 +41,18 @@ semantic-server. To install [JQuery][JQ] from the command-line:
 $ npm install --save jquery
 ```
 
-[BCPUB]: http://bibcat.org/publisher
+### Step 5. Install Bootstrap
+The default CSS/Javascript user interface used in [BIBCAT Publisher][BCPUB]
+is [Bootstrap][BOOTSTRP] 4.0. To install [Bootstrap][BOOTSTRP] with [NPM][NPM],
+from the command-line:
+
+```javascript
+$ npm install --save bootstrap@4.0.0.-beta.2
+```
+
+[BCPUB]: http://bibcat.org/publisher/
 [BABEL]: http://babeljs.io/
+[BOOTSTRP]: http://getbootstrap.com/
 [JSX]: https://jsx.github.io/
 [JQ]: http://jquery.com/
 [NODE]: https://nodejs.org/en/

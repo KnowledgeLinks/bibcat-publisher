@@ -1,6 +1,7 @@
 import React from "react";
+import Search from "./Search";
 
-function Search(props) {
+/*function Search(props) {
     return (
         <form className="form-inline mx-lg-3" method="POST" action="{props.action}">
             <div className="form-group">
@@ -9,7 +10,7 @@ function Search(props) {
             <button type="submit" className="btn btn-primary">Search</button>
         </form>
     );
-}
+}*/
 
 export default class App extends React.Component {
     render () {

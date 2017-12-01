@@ -1,14 +1,25 @@
 site_name: BIBCAT Publisher
 pages:
   - Home: index.md
-  - About: about.md
+  - About: 
+    - 'about/index.md'
+    - 'Knowledge Graphs': 'about/knowledge-graphs.md'
+    - 'Digital Repository': 'about/digital-repository.md'
+  - Quick start: quick-start.md
   - Installing: 
     - 'installing/index.md'
     - 'BIBCAT Application Server': 'installing/bibcat-app-server.md'
     - 'NPM, Webpack, and React': 'installing/npm-webpack-react.md'
-  - Hosting: hosting.md
-  - Customizing: 
+  - Configuration: configuration.md
+  - User Management:
+    - 'Authentication': 'user-management/authentication.md'
+    - 'Roles': 'user-management/roles.md'
+    - 'Adding, Updating, and Deleting Users': 'user-management/crud.md'
+  - Customizing:
     - 'customizing/index.md'
-  - KnowledgeGraph: knowledge-graph.md
-  - DigitalRepository: digital-repository.md
+    - Appearance: 'customizing/appearance.md'
+    - 'User Interface': 'customizing/user-interface.md'
+    - 'APIs': 'customizing/apis.md'
+  - Hosting: hosting.md
+  
 theme: readthedocs
