@@ -5,7 +5,6 @@ from . import app
 
 @app.route("/search", methods=["GET", "POST"])
 def search_data():
-    
     if request.method.startswith("POST"):
         query_terms = request.form.get("query")
         output = {"results": [], "query": query_terms }
