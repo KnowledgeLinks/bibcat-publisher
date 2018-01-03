@@ -14,6 +14,10 @@ def search_data():
     print("Args: {} Output: {}".format(request.args, output))
     return jsonify(output)
 
+@app.route("/detail")
+def detail():
+    return render_template("detail.html")
+
 @app.route("/")
 def home():
     return render_template("index.html")

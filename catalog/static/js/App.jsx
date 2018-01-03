@@ -1,5 +1,6 @@
 import React from "react";
 import SearchResults from "./Search";
+import NavigationBar from "./Navigation";
 
 /*function Search(props) {
     return (
@@ -16,7 +17,7 @@ export default class App extends React.Component {
     render () {
         return (
             <div className="container">
-                <h1>BIBCAT Publisher</h1>
+                <NavigationBar />
                 <SearchResults results={RESULTS} />
             </div>
         );
