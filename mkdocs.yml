@@ -17,6 +17,7 @@ pages:
     - 'Adding, Updating, and Deleting Users': 'user-management/crud.md'
   - Customizing:
     - 'customizing/index.md'
+    - 'Start Development': 'customizing/starting.md'
     - Appearance: 'customizing/appearance.md'
     - 'User Interface': 'customizing/user-interface.md'
     - 'APIs': 'customizing/apis.md'
