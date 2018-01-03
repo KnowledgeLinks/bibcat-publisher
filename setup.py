@@ -15,7 +15,7 @@ setup(
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3"],
-    keywords=["rdf linked-data publisher bibframe digital repository",
+    keywords=["rdf linked-data publisher bibframe digital repository"]
     install_requires=[
         "bibcat",
         "Flask-Webpack"

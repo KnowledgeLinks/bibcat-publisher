@@ -3,14 +3,14 @@ title: Installing Node.js, Webpack, and React
 
 ## Installing Node.js, Webpack, and React.js
 ### Step 1. Install Node.js and NPM
-[Download](https://nodejs.org/en/download/) and install the 
-latest version of [Node.js][NODE]. This will install [NPM][NPM] 
+[Download](https://nodejs.org/en/download/) and install the
+latest version of [Node.js][NODE]. This will install [NPM][NPM]
 in your environment.
-    
-### Step 2. Install Webpack 
-[Webpack][WEBPCK] is a [Node.js][NODE] module bundler that is used in 
-[BIBCAT Publisher][BCPUB] to manage JavaScript, Media, and CSS dependencies. 
-From your command line, run the following command in the 
+
+### Step 2. Install Webpack
+[Webpack][WEBPCK] is a [Node.js][NODE] module bundler that is used in
+[BIBCAT Publisher][BCPUB] to manage JavaScript, Media, and CSS dependencies.
+From your command line, run the following command in the
 `bibcat-publisher/catalog/static` directory.
 
 ```javascript
@@ -18,8 +18,8 @@ $ cd /path/to/bibcat-publisher/catalog/static
 $ npm install --save webpack
 ```
 ### Step 3. Install React and Babel
-The user interface in [BIBCAT Publisher][BCPUB] is built using 
-[React.js][REACT] components. 
+The user interface in [BIBCAT Publisher][BCPUB] is built using
+[React.js][REACT] components.
 
 ```javascript
 $ npm install --save react react-dom
@@ -34,7 +34,7 @@ $ npm install --save babel-core babel-loader babel-preset-react babel-preset-env
 
 ### Step 4. Install JQuery
 The [JQuery][JQ] Javascript library is used by [BIBCAT Publisher][BCPUB]
-to communicate between the React Front-end UI and the back-end 
+to communicate between the React Front-end UI and the back-end
 semantic-server. To install [JQuery][JQ] from the command-line:
 
 ```javascript
@@ -47,7 +47,8 @@ is [Bootstrap][BOOTSTRP] 4.0. To install [Bootstrap][BOOTSTRP] with [NPM][NPM],
 from the command-line:
 
 ```javascript
-$ npm install --save bootstrap@4.0.0.-beta.2
+$ npm install --save popper.js
+$ npm install --save bootstrap@4.0.0-beta.2
 ```
 
 [BCPUB]: http://bibcat.org/publisher/
