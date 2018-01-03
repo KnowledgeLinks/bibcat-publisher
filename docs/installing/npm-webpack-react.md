@@ -13,23 +13,23 @@ in your environment.
 From your command line, run the following command in the
 `bibcat-publisher/catalog/static` directory.
 
-```javascript
-$ cd /path/to/bibcat-publisher/catalog/static
-$ npm install --save webpack
+```
+cd /path/to/bibcat-publisher/catalog/static
+npm install --save webpack
 ```
 ### Step 3. Install React and Babel
 The user interface in [BIBCAT Publisher][BCPUB] is built using
 [React.js][REACT] components.
 
-```javascript
-$ npm install --save react react-dom
+```
+npm install --save react react-dom
 ```
 
 React UI components are built in a JavaScript extension called
 [JSX][JSX] that requires the [Babel][BABEL] NPM package:
 
-```javascript
-$ npm install --save babel-core babel-loader babel-preset-react babel-preset-env
+```
+npm install --save babel-core babel-loader babel-preset-react babel-preset-env
 ```
 
 ### Step 4. Install JQuery
@@ -37,8 +37,8 @@ The [JQuery][JQ] Javascript library is used by [BIBCAT Publisher][BCPUB]
 to communicate between the React Front-end UI and the back-end
 semantic-server. To install [JQuery][JQ] from the command-line:
 
-```javascript
-$ npm install --save jquery
+```
+npm install --save jquery
 ```
 
 ### Step 5. Install Bootstrap
@@ -46,9 +46,9 @@ The default CSS/Javascript user interface used in [BIBCAT Publisher][BCPUB]
 is [Bootstrap][BOOTSTRP] 4.0. To install [Bootstrap][BOOTSTRP] with [NPM][NPM],
 from the command-line:
 
-```javascript
-$ npm install --save popper.js
-$ npm install --save bootstrap@4.0.0-beta.2
+```
+npm install --save popper.js
+npm install --save bootstrap@4.0.0-beta.2
 ```
 
 [BCPUB]: http://bibcat.org/publisher/
