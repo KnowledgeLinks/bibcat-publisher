@@ -4,7 +4,13 @@
             BIBCAT Publisher Header
         </section>
         <section class="col-7">
-            Alerts and Messages
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            Alerts and Messages({{ messages|length }}).
+            {% else %}
+            Messages (0)
+            {% endif %}
+            {% endwith %}
         </section>
     </div>
 </div>

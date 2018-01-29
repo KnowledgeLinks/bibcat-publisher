@@ -11,6 +11,3 @@ google_login_blprt = make_google_blueprint(
     scope=["profile", "email"])
 
 app.register_blueprint(google_login_blprt, url_prefix="/login")
-
-
-
