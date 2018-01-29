@@ -9,7 +9,6 @@ pages:
   - Installing: 
     - 'installing/index.md'
     - 'BIBCAT Application Server': 'installing/bibcat-app-server.md'
-    - 'NPM, Webpack, and React': 'installing/npm-webpack-react.md'
   - Configuration: configuration.md
   - User Management:
     - 'Authentication': 'user-management/authentication.md'
