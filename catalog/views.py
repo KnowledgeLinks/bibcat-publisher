@@ -1,6 +1,6 @@
 import pkg_resources
 
-from flask import jsonify, render_template, request
+from flask import flash, jsonify, render_template, request
 from . import app
 
 @app.route("/search", methods=["GET", "POST"])
@@ -11,7 +11,6 @@ def search_data():
     else:
         query_terms = request.args.get("query")
         output = {"results": [], "query": query_terms}
-    print("Args: {} Output: {}".format(request.args, output))
     return jsonify(output)
 
 @app.route("/detail")
@@ -20,4 +19,5 @@ def detail():
 
 @app.route("/")
 def home():
+    flash("Public Message")
     return render_template("index.html")
