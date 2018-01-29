@@ -1,3 +1,5 @@
 bibcat
 flask
+Flask-Dance
+Flask-Login
 mkdocs

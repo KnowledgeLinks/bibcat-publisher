@@ -1,8 +1,11 @@
 import pkg_resources
 
-from flask import abort, flash, jsonify, render_template, request
+from flask import abort, flash, jsonify, redirect, render_template 
+from flask import request, url_for
 from flask_dance.contrib.google import google
+from flask_dance.contrib.facebook import facebook
 from . import app
+from .forms import LoginForm
 
 @app.route("/search", methods=["GET", "POST"])
 def search_data():
@@ -27,8 +30,28 @@ def profile(service=None):
         assert resp.ok, resp.text
         print(resp.json())
         return "Your Google {email}".format(email=resp.json()["email"])
+    elif service.endswith("facebook"):
+        if not facebook.authorized:
+            return redirect(url_for("facebook.login"))
+        resp = facebook.get("/oauth2/v2/userinfo")
+        assert resp.ok, resp.text
+        print(resp.json())
+        return "Your Facebook Authorization and {email}".format(
+            email=resp.json()["email"])
+    else:
+        return render_template("profile.html")
     return abort(404)
 
+@app.route("/login", methods=['POST', 'GET'])
+def publisher_login():
+    login_form = LoginForm()
+#    if request.method.startswith("POST"):
+    if login_form.validate_on_submit():
+        username = login_form.username.data
+        password = login_form.password.data
+        return redirect("profile")
+    return render_template("login.html", form=login_form)
+   
 
 @app.route("/")
 def home():

@@ -5,7 +5,7 @@ here = path.abspath(path.dirname(__file__))
 
 setup(
     name="bibcat_publisher",
-    version="0.2.0",
+    version="0.3.0",
     description="RDF Linked Data Publisher and Asset Repository",
     author="KnowledgeLinks",
     author_email="knowledgelinks.io@gmail.com",
