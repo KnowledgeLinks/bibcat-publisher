@@ -1,6 +1,7 @@
 import pkg_resources
 
-from flask import flash, jsonify, render_template, request
+from flask import abort, flash, jsonify, render_template, request
+from flask_dance.contrib.google import google
 from . import app
 
 @app.route("/search", methods=["GET", "POST"])
@@ -16,6 +17,18 @@ def search_data():
 @app.route("/detail")
 def detail():
     return render_template("detail.html")
+
+@app.route("/profile/<path:service>")
+def profile(service=None):
+    if service.endswith("google"):
+        if not google.authorized:
+            return redirect(url_for("google.login"))
+        resp = google.get("/oauth2/v2/userinfo")
+        assert resp.ok, resp.text
+        print(resp.json())
+        return "Your Google {email}".format(email=resp.json()["email"])
+    return abort(404)
+
 
 @app.route("/")
 def home():
