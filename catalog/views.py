@@ -1,5 +1,7 @@
 import pkg_resources
 
+from elasticsearch import Elasticsearch
+from elasticsearch_dsl import Search, Q
 from flask import abort, flash, jsonify, redirect, render_template 
 from flask import request, url_for
 from flask_dance.contrib.google import google
@@ -7,15 +9,27 @@ from flask_dance.contrib.facebook import facebook
 from . import app
 from .forms import LoginForm
 
+es_client = Elasticsearch(app.config.get("ELASTICSEARCH", 
+    "localhost"))
+ 
 @app.route("/search", methods=["GET", "POST"])
 def search_data():
+    output_format, output = "html", []
+    search = Search(using=es_client)
     if request.method.startswith("POST"):
-        query_terms = request.form.get("query")
-        output = {"results": [], "query": query_terms }
+        query_phrase = request.form.get("query")
     else:
-        query_terms = request.args.get("query")
-        output = {"results": [], "query": query_terms}
-    return jsonify(output)
+        query_phrase = request.args.get("query")
+    search = search.query(
+        Q("query_string", 
+          query=query_phrase,
+          default_operator="AND"))
+    results = search.execute()
+    if output_format.startswith("json"):
+        return jsonify(output)
+    return render_template("search-results.html",
+        results=results,
+        query_phrase=query_phrase)
 
 @app.route("/detail")
 def detail():

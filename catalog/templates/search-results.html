@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="row">
+    <div class="col-1">
+        <a href="#">
+            <i class="fas fa-angle-left fa-3x"></i>
+        </a>
+    </div>
+    <div class="col-9 mx-auto">
+            <div class="card-deck">
+            
+            {% for hit in results %}
+                <div id="id-{{ loop.index }}" 
+                     class="card {% if loop.index > 4 %}d-none{% endif %}">
+                    <img class="card-img-top" src="..." 
+                         alt="Cover Image Place Holder">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ hit.value }}</h5>
+                        <p class="card-text">
+                        {% if hit.bf_contribution %}
+                        {% for contributor in hit.bf_contribution.bf_agent %}
+                            {% if loop.first %}by{% endif %}
+                            {{ contributor.rdfs_label }}
+                            {% if not loop.last %},{% endif %}
+                        {% endfor %}
+                        {% endif %}</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">{{ "{:,}".format(loop.index) }} of {{ "{:,}".format(results.hits.total) }}</small> 
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    <div class="col-1">
+        <a href="#" onclick="alert('Load next')">
+            <i class="fas fa-angle-right fa-3x"></i>
+        </a>
+    </div>
+</div>
+{% endblock %}
