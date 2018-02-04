@@ -3,16 +3,23 @@
 {% block main %}
 <div class="row">
     <div class="col-1">
-        <a href="#">
-            <i class="fas fa-angle-left fa-3x"></i>
-        </a>
+        <div class="mt-5">
+            <a href="{{ url_for('search_data',
+                                query=query_phrase,
+                                offset=offset|int-4) }}"
+                                
+                class="btn btn-default btn-block
+                {% if offset|int == 0 %}disabled{% endif %}"> 
+                <i class="fas fa-angle-left fa-3x"></i>
+            </a>
+        </div>
     </div>
     <div class="col-9 mx-auto">
             <div class="card-deck">
             
             {% for hit in results %}
-                <div id="id-{{ loop.index }}" 
-                     class="card {% if loop.index > 4 %}d-none{% endif %}">
+                <div id="{{ hit.id }}" 
+                     class="card">
                     <img class="card-img-top" src="..." 
                          alt="Cover Image Place Holder">
                     <div class="card-body">
@@ -27,14 +34,16 @@
                         {% endif %}</p>
                     </div>
                     <div class="card-footer">
-                        <small class="text-muted">{{ "{:,}".format(loop.index) }} of {{ "{:,}".format(results.hits.total) }}</small> 
+                        <small class="text-muted">{{ "{:,}".format(offset|int + loop.index) }} of {{ "{:,}".format(results.hits.total) }}</small> 
                     </div>
                 </div>
             {% endfor %}
             </div>
         </div>
     <div class="col-1">
-        <a href="#" onclick="alert('Load next')">
+        <a href="{{ url_for('search_data',
+                                query=query_phrase,
+                                offset=offset|int+4) }}">
             <i class="fas fa-angle-right fa-3x"></i>
         </a>
     </div>

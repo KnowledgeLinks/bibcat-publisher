@@ -15,7 +15,7 @@
       {% with messages = get_flashed_messages() %}
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Messages ({% if messages %}({{ messages|length }}{% else %}0{% endif %})
+            Messages {% if messages %}({{ messages|length }}{% else %}0{% endif %})
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
          {% for message in messages %}
@@ -35,9 +35,8 @@
       </li>
 
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Alternate Typahead Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    <div class="my-2 my-lg-0">
+      <a href="{{ url_for('publisher_login') }}" 
+         class="btn btn-outline-success my-2 my-sm-0">Login</a>
   </div>
 </nav>

@@ -11,6 +11,7 @@ from .forms import LoginForm
 
 es_client = Elasticsearch(app.config.get("ELASTICSEARCH", 
     "localhost"))
+
  
 @app.route("/search", methods=["GET", "POST"])
 def search_data():
@@ -18,17 +19,21 @@ def search_data():
     search = Search(using=es_client)
     if request.method.startswith("POST"):
         query_phrase = request.form.get("query")
+        offset = request.form.get("offset", 0)
     else:
         query_phrase = request.args.get("query")
+        offset = request.args.get("offset", 0)
     search = search.query(
         Q("query_string", 
           query=query_phrase,
-          default_operator="AND"))
+          default_operator="AND")).params(size=4, 
+              from_=offset)
     results = search.execute()
     if output_format.startswith("json"):
         return jsonify(output)
     return render_template("search-results.html",
         results=results,
+        offset=offset,
         query_phrase=query_phrase)
 
 @app.route("/detail")
