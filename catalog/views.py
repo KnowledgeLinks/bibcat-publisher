@@ -6,23 +6,29 @@ from flask import abort, flash, jsonify, redirect, render_template
 from flask import request, url_for
 from flask_dance.contrib.google import google
 from flask_dance.contrib.facebook import facebook
-from . import app
+from . import app, config_mgr, data_connection
 from .forms import LoginForm
-
-es_client = Elasticsearch(app.config.get("ELASTICSEARCH", 
-    "localhost"))
-
  
+
+es = Elasticsearch()
+
 @app.route("/search", methods=["GET", "POST"])
 def search_data():
     output_format, output = "html", []
-    search = Search(using=es_client)
     if request.method.startswith("POST"):
         query_phrase = request.form.get("query")
         offset = request.form.get("offset", 0)
     else:
         query_phrase = request.args.get("query")
         offset = request.args.get("offset", 0)
+    # Subject Search
+    #results = data_connection.datastore.query(
+    #    """SELECT ?subject ?label
+    #    WHERE {{
+    #        ?subject rdfs:label ?label .
+    #        FILTER(CONTAINS(?label, "{0}"))
+    #    }}""")
+    search = Search(using=es)
     search = search.query(
         Q("query_string", 
           query=query_phrase,

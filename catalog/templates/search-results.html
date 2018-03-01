@@ -20,16 +20,15 @@
             {% for hit in results %}
                 <div id="{{ hit.id }}" 
                      class="card">
-                    <img class="card-img-top" src="..." 
-                         alt="Cover Image Place Holder">
+                    <img class="card-img-top" 
+                        src="{% if hit.bf_hasInstance.bf_coverArt %}{{ hit.bf_hasInstance.bf_coverArt.value[1:-1] }}{% endif %}" 
+                         alt="{{ hit.bf_hasInstance.bf_coverArt }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ hit.value }}</h5>
                         <p class="card-text">
                         {% if hit.bf_contribution %}
-                        {% for contributor in hit.bf_contribution.bf_agent %}
-                            {% if loop.first %}by{% endif %}
-                            {{ contributor.rdfs_label }}
-                            {% if not loop.last %},{% endif %}
+                        {% for contributor in hit.bf_contribution %}
+                            {{ contributor }}                       
                         {% endfor %}
                         {% endif %}</p>
                     </div>
