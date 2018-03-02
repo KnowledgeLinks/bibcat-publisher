@@ -48,3 +48,43 @@
     </div>
 </div>
 {% endblock %}
+
+{% block more_js %}
+<script>
+
+    var entitySuggest = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+            url: "{{ url_for('suggest') }}?q=%QUERY",
+            wildcard: '%QUERY'
+        }
+    });
+
+    $("#suggest-query .typeahead").typeahead({
+        highlight: true
+    },
+    {
+        name: 'access-pts',
+        display: 'label',
+        id: 'id',
+        source: entitySuggest.ttAdapter(),
+        templates: {
+            empty: [
+                '<div style="padding: 1em 2m">',
+                'Failed to match',
+                '</div>'
+            ].join("\n"),
+            suggestion: function(data) {
+                return data.html;
+            }
+        }
+    }).on('typeahead:select', function(obj, datum) {
+            $.post({
+                url: "{{ url_for('search_data') }}",
+                data: datum.label
+            });
+    });
+       
+</script>
+{% endblock %}
