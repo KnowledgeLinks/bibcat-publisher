@@ -3,9 +3,11 @@
   action="{{ url_for('search_data') }}" method="POST">
   <div class="form-group row">
     <div class="col-11">
-      <input type="text" class="form-control form-control-lg" 
-             id="query" name="query" placeholder="Typeahead Search"
-            {% if query_phrase %}value="{{ query_phrase }}"{% endif %}>
+        <div id="suggest-query">
+            <input type="text" class="typeahead form-control form-control-lg" 
+                id="query" name="query" placeholder="Typeahead Search"
+                {% if query_phrase %}value="{{ query_phrase }}"{% endif %}>
+        </div>
     </div>
     <button type="submit" class="btn btn-success col-1">Go</button>
   </div>

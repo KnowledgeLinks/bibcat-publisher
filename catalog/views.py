@@ -21,13 +21,6 @@ def search_data():
     else:
         query_phrase = request.args.get("query")
         offset = request.args.get("offset", 0)
-    # Subject Search
-    #results = data_connection.datastore.query(
-    #    """SELECT ?subject ?label
-    #    WHERE {{
-    #        ?subject rdfs:label ?label .
-    #        FILTER(CONTAINS(?label, "{0}"))
-    #    }}""")
     search = Search(using=es)
     search = search.query(
         Q("query_string", 
@@ -41,6 +34,15 @@ def search_data():
         results=results,
         offset=offset,
         query_phrase=query_phrase)
+
+@app.route("/suggest")
+def suggest():
+    query = request.args.get("query")
+    creator_search = Search(using=es)
+    work_search = Search(using=es)
+    subject_search = Search(using=es)
+    return "<div>Answer</div>"
+
 
 @app.route("/detail")
 def detail():
