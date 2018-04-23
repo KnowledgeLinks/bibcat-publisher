@@ -23,3 +23,24 @@ google_login_blueprint = make_google_blueprint(
 app.register_blueprint(facebook_login_blueprint, url_prefix="/login-facebook")
 app.register_blueprint(google_login_blueprint, url_prefix="/login-google")
 
+from .views import detail, home, profile, search_data, suggest
+
+@app.route("/detail")
+def app_detail():
+    return detail()
+
+@app.route("/profile/<path:service>")
+def app_profile(service=None):
+    return profile(service)
+ 
+@app.route("/search", methods=["GET", "POST"])
+def app_search_data():
+    return search_data
+
+@app.route("/suggest/<path:name>")
+def app_suggest(name=None):
+    return suggest(name)
+
+@app.route("/")
+def app_home():
+    return home()

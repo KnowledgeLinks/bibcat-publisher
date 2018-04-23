@@ -1,18 +1,19 @@
 import pkg_resources
 
+from bs4 import BeautifulSoup
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search, Q
 from flask import abort, flash, jsonify, redirect, render_template 
 from flask import request, url_for
 from flask_dance.contrib.google import google
 from flask_dance.contrib.facebook import facebook
-from . import app, config_mgr, data_connection
 from .forms import LoginForm
- 
-
+#try:
+#    es = Elasticsearch(
+#        current_app.config.get("ELASTICSEARCH", "localhost"))
+#except:
 es = Elasticsearch()
 
-@app.route("/search", methods=["GET", "POST"])
 def search_data():
     output_format, output = "html", []
     if request.method.startswith("POST"):
@@ -35,20 +36,35 @@ def search_data():
         offset=offset,
         query_phrase=query_phrase)
 
-@app.route("/suggest")
-def suggest():
-    query = request.args.get("query")
-    creator_search = Search(using=es)
-    work_search = Search(using=es)
-    subject_search = Search(using=es)
-    return "<div>Answer</div>"
+
+def suggest(name=None):
+    if not name:
+        return
+    query = request.args.get("q")
+    name = name.lower()
+    search = Search(using=es)
+    if name.startswith("work"):
+        search = search.query(
+            Q("match", value=query)).source(include=["value"])
+    results = search.execute() 
+    soup = BeautifulSoup('', 'lxml')
+    output = soup.new_tag("div", style="padding: 1em 2m")
+    for row in results.hits.hits:
+        link = soup.new_tag("a", 
+            href="{}?id={}".format(url_for('detail'),
+                                   row.get("_id")))
+        link.string = row.get("_source").get("value")
+        output.append(link)
+        output.append(soup.new_tag("br"))
+    return jsonify({"html": output.prettify()})
 
 
-@app.route("/detail")
 def detail():
+    ident = request.args.get("id")
+    
     return render_template("detail.html")
 
-@app.route("/profile/<path:service>")
+
 def profile(service=None):
     if service.endswith("google"):
         if not google.authorized:
@@ -69,7 +85,6 @@ def profile(service=None):
         return render_template("profile.html")
     return abort(404)
 
-@app.route("/login", methods=['POST', 'GET'])
 def publisher_login():
     login_form = LoginForm()
 #    if request.method.startswith("POST"):
@@ -79,8 +94,6 @@ def publisher_login():
         return redirect("profile")
     return render_template("login.html", form=login_form)
    
-
-@app.route("/")
 def home():
     flash("Public Message")
     return render_template("index.html")

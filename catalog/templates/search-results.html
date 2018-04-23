@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-1">
         <div class="mt-5">
-            <a href="{{ url_for('search_data',
+            <a href="{{ url_for('catalog.search_data',
                                 query=query_phrase,
                                 offset=offset|int-4) }}"
                                 
@@ -39,7 +39,7 @@
             </div>
         </div>
     <div class="col-1">
-        <a href="{{ url_for('search_data',
+        <a href="{{ url_for('catalog.search_data',
                                 query=query_phrase,
                                 offset=offset|int+4) }}">
             <i class="fas fa-angle-right fa-3x"></i>
@@ -51,11 +51,11 @@
 {% block more_js %}
 <script>
 
-    var entitySuggest = new Bloodhound({
+    var workSuggest = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         remote: {
-            url: "{{ url_for('suggest') }}?q=%QUERY",
+            url: "{{ url_for('catalog.suggest', name='work') }}?q=%QUERY",
             wildcard: '%QUERY'
         }
     });
@@ -64,23 +64,25 @@
         highlight: true
     },
     {
-        name: 'access-pts',
+        name: 'work-access',
         display: 'label',
         id: 'id',
-        source: entitySuggest.ttAdapter(),
+        source: workSuggest.ttAdapter(),
         templates: {
             empty: [
                 '<div style="padding: 1em 2m">',
                 'Failed to match',
                 '</div>'
             ].join("\n"),
+            header: '<h3>Works</h3>',
             suggestion: function(data) {
-                return data.html;
+                //console.log("data html is " + data);
+                return data;
             }
         }
     }).on('typeahead:select', function(obj, datum) {
             $.post({
-                url: "{{ url_for('search_data') }}",
+                url: "{{ url_for('catalog.search_data') }}",
                 data: datum.label
             });
     });
