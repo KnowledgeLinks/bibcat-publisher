@@ -7,6 +7,11 @@ from .views import search_data as search_catalog
 catalog = Blueprint('catalog', __name__,
                 template_folder='templates')
 
+@catalog.errorhandler(500)
+def internal_server_error(e):
+    return render_template("500.html", error=e), 500
+
+
 @catalog.route("/detail")
 def record_detail():
     return "In record detail"

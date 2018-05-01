@@ -1,5 +1,5 @@
 import pkg_resources
-
+import click
 from bs4 import BeautifulSoup
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search, Q
@@ -13,6 +13,9 @@ from .forms import LoginForm
 #        current_app.config.get("ELASTICSEARCH", "localhost"))
 #except:
 es = Elasticsearch()
+
+def internal_server_error(e):
+    return render_template("500.html", error=e), 500
 
 def search_data():
     output_format, output = "html", []

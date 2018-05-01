@@ -1,5 +1,7 @@
 *swp
 *pyc
+build*
+*egg-info/
 base*
 instance*
 __pycache*
