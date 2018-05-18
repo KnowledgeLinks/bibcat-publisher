@@ -3,9 +3,19 @@ __author__ = "Jeremy Nelson", "Mike Stabile", "Jay Peterson"
 from flask import Blueprint, render_template
 #import views
 from .views import search_data as search_catalog
+from .views import into_list
 
 catalog = Blueprint('catalog', __name__,
                 template_folder='templates')
+
+@catalog.app_template_filter("/into_list")
+def into_list(entity):
+    return into_list(entity)
+
+@catalog.errorhandler(500)
+def internal_server_error(e):
+    return render_template("500.html", error=e), 500
+
 
 @catalog.route("/detail")
 def record_detail():
