@@ -26,14 +26,14 @@
                 <div id="{{ hit.id }}" 
                      class="card">
                     <div class = "img-container" align="center">
-                        <img class="result-img" 
+                        <img class="result-img" height="200px" width="150px"
                         src="{% if hit.bf_hasInstance[0].bf_coverArt %}{{ hit.bf_hasInstance[0].bf_coverArt.value }}{% endif %}" 
                          alt="{% if hit.bf_hasInstance[0].bf_coverArt %}{{ hit.bf_hasInstance[0].bf_coverArt.value }} {% endif %}"></div>
                     <div class="card-body">
                         <h5 class="card-title">{{ hit.value }}</h5>
                         <p class="card-text">
                         {% if hit.bf_contribution %}
-                        {% for contributor in hit.bf_contribution %}
+                        {% for contributor in hit.bf_contribution|into_list %}
                             {{ contributor[0].value }}                       
                         {% endfor %}
                         {% endif %}</p>

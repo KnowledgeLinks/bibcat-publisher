@@ -74,14 +74,12 @@ def profile(service=None):
             return redirect(url_for("google.login"))
         resp = google.get("/oauth2/v2/userinfo")
         assert resp.ok, resp.text
-        print(resp.json())
         return "Your Google {email}".format(email=resp.json()["email"])
     elif service.endswith("facebook"):
         if not facebook.authorized:
             return redirect(url_for("facebook.login"))
         resp = facebook.get("/oauth2/v2/userinfo")
         assert resp.ok, resp.text
-        print(resp.json())
         return "Your Facebook Authorization and {email}".format(
             email=resp.json()["email"])
     else:
@@ -96,6 +94,12 @@ def publisher_login():
         password = login_form.password.data
         return redirect("profile")
     return render_template("login.html", form=login_form)
+
+def into_list(data):
+    if isinstance(data, dict):
+        return [data, ]
+    elif isinstance(data, list):
+        return data
    
 def home():
     flash("Public Message")
