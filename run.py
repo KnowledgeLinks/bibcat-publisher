@@ -1,6 +1,6 @@
-__author__ = "Jeremy Nelson, Mike Stabile, Jay Peterson"
+__author__ = "Jeremy Nelson", "Mike Stabile", "Jay Peterson"
 
-from catalog import app
+from catalog.app import catalog as app
 from catalog.views import *
 
 if __name__ == '__main__':

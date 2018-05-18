@@ -1,6 +1,6 @@
 <br>
-<form class="form mx-auto bg-primary" style="width: 40em"
-  action="{{ url_for('catalog.search_data') }}" method="POST">
+<form class="form mx-auto" style="width: 50em"
+  action="{{ url_for('search_data') }}" method="POST">
   <div class="form-group row">
     <div class="col-11">
         <div id="suggest-query">
@@ -9,6 +9,6 @@
                 {% if query_phrase %}value="{{ query_phrase }}"{% endif %}>
         </div>
     </div>
-    <button type="submit" class="btn btn-success col-1">Go</button>
+    <button type="submit" class="btn btn-success col-1"><i class="fas fa-search fa-2x"></i></button>
   </div>
 </form>
