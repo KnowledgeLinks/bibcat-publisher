@@ -3,14 +3,15 @@ __author__ = "Jeremy Nelson", "Mike Stabile", "Jay Peterson"
 from flask import Blueprint, render_template
 #import views
 from .views import search_data as search_catalog
-from .views import into_list
+from .views import into_list as to_list
+from .views import publisher_login, suggest
 
 catalog = Blueprint('catalog', __name__,
                 template_folder='templates')
 
 @catalog.app_template_filter("/into_list")
 def into_list(entity):
-    return into_list(entity)
+    return to_list(entity)
 
 @catalog.errorhandler(500)
 def internal_server_error(e):
@@ -28,5 +29,8 @@ def search_data():
 
 @catalog.route("/suggest/<path:name>")
 def auto_suggest(name=None):
-    return "In auto suggest name={}".format(name)
+    return suggest(name)
 
+@catalog.route("/login")
+def publisher_login():
+    return publisher_login()

@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="container">
+    <h2><span class="text-muted">BF {{ work['_source'].get('label') }}:</span>
+    {{ work['_source'].get('value') }}</h2>
+    <div class="row">
+        <article class="col-8">
+            <dl>
+                {% if work['_source'].bf_originDate %}
+                <dt>Origin Date</dt>
+                <dd>{{ work['_source'].bf_originDate }}</dd>
+                {% endif %}
+                {% if work['_source'].bf_summary %}
+                <dt>Summary</dt>
+                <dd>
+                    {{ work['_source'].get('bf_summary').get('rdf_value')|safe }}
+                </dd>
+                {% endif %}
+                {% if work['_source'].bf_partOf %}
+                <dt>In Collections</dt>
+                <dd><a href="{{ work['_source'].bf_partOf.uri }}">
+                        {{ work['_source'].bf_partOf.value }}
+                    </a>
+                </dd>
+                {% endif %}
+
+            </dl>
+        </article>
+        <section class="col-4">
+           {% if work['_source'].bf_subject %}
+            <h3>Subject(s)</h3>
+            <ul class="lead">
+            {% if work['_source'].bf_subject | isinstance('dict') %}
+                <li>{{ work['_source'].bf_subject.value }}</li>
+            {% else %}
+            {% for subject in work['_source'].bf_subject %}
+                <li><a href="{{ subject.uri }}">{{ subject.value }}</a></li>
+            {% endfor %}
+            {% endif %}
+            </ul>
+            {% endif %}
+            
+        </section>
+    </div>
+    {% for instance in work["_source"].bf_hasInstance %}
+    <div class="row">
+        <section class="col-2">
+        {% if instance.bf_coverArt %}
+        <img class="result-img" height="200px" width="150px"
+            src="{{ instance.bf_coverArt.value }}"
+            alt="{{ instance.bf_coverArt.value }}">
+        {% endif %}
+
+        </section>
+        <section class="col-8">
+            <h3><span class="text-muted">BF Instance</span> {{ instance.bf_title.bf_mainTitle }}</h3>
+            <dl class="row">
+                {% if instance.bf_contribution %}
+                <dt class="col-sm-3">Contributor(s)</dt>
+                <dd class="col-sm-9">
+                    <ul>
+                    {% if instance.bf_contribution | isinstance('dict') %}
+                    <li>{{ instance.bf_contribution.value }}</li>
+                    {% else %}
+                {% for row in instance.bf_contribution %}
+                    <li>{{ row.value }}</li>
+                {% endfor %}
+                    {% endif %}
+                    </ul>
+                </dd>
+                {% endif %}
+                {% if instance.bf_summary %}
+                <dt class="col-sm-3">Summary</dt>
+                <dd class="col-sm-9">               
+                    {{ instance.bf_summary.value }}
+                </dd>
+                {% endif %} 
+                <dt class="col-sm-3">URI</dt>
+                <dd class="col-sm-9">
+                    <a href="{{ instance.uri }}">{{ instance.uri }}</a>
+                </dd>
+                {% if instance.bf_provisionActivity | isinstance('dict') %}
+                     <dt class="col-sm-3">
+                        {% for type_of in instance.bf_provisionActivity.rdf_type %} 
+                        {% if type_of.endswith("Publication") %}Publication{% endif %}
+                        {% if type_of.endswith("Manufacture") %}Manufacture{% endif %}
+                        {% endfor %}
+                    </dt>
+                    <dd class="col-sm-9">
+                        {% if instance.bf_provisionActivity.relators_pbl %}
+                            {{ instance.bf_provisionActivity.relators_pbl.value }}
+                        {% endif %}
+                    </dd>
+                {% else %}
+                {% for activity in instance.bf_provisionActivity %}
+                    <dt class="col-sm-3">
+                        {% for type_of in activity.rdf_type %} 
+                        {% if type_of.endswith("Publication") %}Publication{% endif %}
+                        {% if type_of.endswith("Manufacture") %}Manufacture{% endif %}
+                        {% endfor %}
+                    </dt>
+                    <dd class="col-sm-9">
+                        <a href="{{ activity.bf_agent.uri }}">{{ activity.bf_agent.value }}</a>
+                    </dd>
+                {% endfor %}
+                {% endif %}
+                 {% if instance.bf_extent %}
+                    <dt class="col-sm-3">Extent</dt>
+                    <dd class="col-sm-9">{{ instance.bf_extent.rdf_value }}</dd>
+                {% endif %}
+                {% if instance.bf_carrier %}
+                    <dt class="col-sm-3">Carrier</dt>
+                    <dd class="col-sm-9">{{ instance.bf_carrier.value }}</dd>
+                {% endif %}
+                {% if instance.bf_subject %}
+                    <dt class="col-sm-3">Subject(s)</dt>
+                    <dd class="col-sm-9">
+                        <ul>
+                        {% if instance.bf_subject | isinstance('dict') %}
+                            <li>{{ instance.bf_subject.value }}</li>
+                        {% else %}
+                        {% for subject in instance.bf_subject %}
+                            <li>{{ subject.rdf_value }}</li>
+                        {% endfor %}
+                        {% endif %}
+                        </ul>
+                    </dd>
+                {% endif %}
+           </dl>
+            <h4>BF Items</h4>
+            <div class="accordion" id="{{ instance.id }}-items">
+            {% for item in instance.bf_hasItem %}
+            <div class="card">
+                <div class="card-header" id="{{ item.id }}">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" type="button" 
+                            data-toggle="collapse"
+                            data-target="#{{ item.id }}-content"
+                            aria-expanded="true"
+                            aria-controls="{{ item.id }}-content">
+                        BF Item {{ loop.index }} held by {{ item.bf_heldBy.value }} 
+                        </button>
+                    </h5>
+                </div>
+                <div class="collapse {% if loop.first %}show{% endif %}"
+                    aria-labelledby="{{ item.id }}"
+                    data-parent="{{ instance.id }}-items">
+                    <div class="card-body">
+                        <p>Item available at 
+                        <a href="{{ item.uri }}">{{ item.uri }}</a> under 
+                        {{ item.bf_usageAndAccessPolicy.value }} rights and usage policy.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            </div>
+            </div>
+        </section>
+    </div>
+    {% endfor %}
+    {# <dl>
+    {% for row,value in  work['_source'].items() %}
+        <dt>{{ row }}</dt>
+        <dd>{{ value }}</dd>
+
+    {% endfor %}
+    </dl> #}
+</div>
+{% endblock %}
